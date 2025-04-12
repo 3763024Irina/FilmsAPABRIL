@@ -19,7 +19,7 @@ class MyCustomCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // Настроим элементы UI
+        // Добавляем все элементы UI
         contentView.addSubview(filmTitleLabel)
         contentView.addSubview(releaseYearLabel)
         contentView.addSubview(ratingLabel)
@@ -65,24 +65,25 @@ class MyCustomCell: UICollectionViewCell {
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true // Картинка обрезается по границам
         
-        // Используем UIStackView для вертикального расположения текста
-        let stackView = UIStackView(arrangedSubviews: [filmTitleLabel, releaseYearLabel, ratingLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        contentView.addSubview(stackView)
-        
-        // Настройки для констрейтов
+        // Устанавливаем ограничения вручную для каждого элемента
         NSLayoutConstraint.activate([
-            // StackView для текста
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: posterImageView.leadingAnchor, constant: -10),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            // filmTitleLabel
+            filmTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            filmTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            filmTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             
-            // Poster image view
-            posterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            // releaseYearLabel
+            releaseYearLabel.topAnchor.constraint(equalTo: filmTitleLabel.bottomAnchor, constant: 2),
+            releaseYearLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            releaseYearLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            
+            // ratingLabel
+            ratingLabel.topAnchor.constraint(equalTo: releaseYearLabel.bottomAnchor, constant: 2),
+            ratingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            ratingLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            
+            // posterImageView
+            posterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             posterImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             posterImageView.widthAnchor.constraint(equalToConstant: 100), // фиксированная ширина
             posterImageView.heightAnchor.constraint(equalToConstant: 150) // фиксированная высота
